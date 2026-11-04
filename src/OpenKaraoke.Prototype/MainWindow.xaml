@@ -1,0 +1,159 @@
+<Window x:Class="OpenKaraoke.Prototype.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:OpenKaraoke.Prototype"
+ xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+ Title="OpenKaraoke" Icon="Assets/openkaraoke.ico" Style="{StaticResource {x:Type Window}}" Width="1600" Height="900" MinWidth="1280" MinHeight="720" WindowStyle="None" ResizeMode="CanResize"
+ WindowStartupLocation="CenterScreen" PreviewKeyDown="Window_KeyDown">
+ <shell:WindowChrome.WindowChrome><shell:WindowChrome CaptionHeight="0" ResizeBorderThickness="6" GlassFrameThickness="0" CornerRadius="0" UseAeroCaptionButtons="False"/></shell:WindowChrome.WindowChrome>
+<Grid x:Name="Surface">
+ <Viewbox x:Name="UiScale" Stretch="Uniform"><Border x:Name="AppCanvas" Width="1600" Height="900" BorderBrush="{StaticResource Line}" BorderThickness="1" CornerRadius="0"><Grid>
+  <Grid.RowDefinitions><RowDefinition x:Name="HeaderRow" Height="48"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+  <Border x:Name="Header" Background="Transparent" BorderBrush="{StaticResource Line}" BorderThickness="0,0,0,1" MouseLeftButtonDown="TitleBar_MouseDown">
+   <Grid><StackPanel Orientation="Horizontal" Margin="18,0">
+    <local:Icon Kind="audio-lines" Foreground="{StaticResource Accent}" Width="27" Height="27" StrokeThickness="2"/>
+    <TextBlock Text="OpenKaraoke" FontSize="19" Margin="10,0,0,0"/>
+    <Border x:Name="VersionBadge" Background="{StaticResource Raised}" BorderBrush="{StaticResource Line}" BorderThickness="1" CornerRadius="11" Height="22" Padding="8,2" Margin="10,0,0,0" VerticalAlignment="Center" IsHitTestVisible="False">
+     <TextBlock x:Name="AppVersionLabel" FontSize="11" Foreground="{StaticResource Sub}"/>
+    </Border>
+   </StackPanel>
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+     <Button x:Name="SettingsButton" Style="{StaticResource WindowButton}" ToolTip="設定" AutomationProperties.Name="設定" Click="Settings_Click"><local:Icon Kind="settings" Width="17" Height="17"/></Button>
+     <Button Style="{StaticResource WindowButton}" ToolTip="最小化" AutomationProperties.Name="最小化" Click="Minimize_Click"><local:Icon Kind="minus" Width="14" Height="14"/></Button>
+     <Button x:Name="MaximizeButton" Style="{StaticResource WindowButton}" ToolTip="最大化" AutomationProperties.Name="最大化視窗" Click="Maximize_Click"><local:Icon x:Name="MaximizeIcon" Kind="square" Width="14" Height="14"/></Button>
+     <Button Style="{StaticResource WindowCloseButton}" AutomationProperties.Name="關閉視窗" Click="Close_Click"><local:Icon Kind="x" Width="16" Height="16"/></Button>
+    </StackPanel>
+   </Grid>
+  </Border>
+  <Grid x:Name="MainArea" Grid.Row="1" Margin="20">
+   <Grid.ColumnDefinitions><ColumnDefinition Width="7*"/><ColumnDefinition x:Name="CatalogColumn" Width="3*"/></Grid.ColumnDefinitions>
+   <Grid x:Name="Performance" Margin="0,0,20,0"><Grid.RowDefinitions><RowDefinition x:Name="VideoRow" Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <local:VideoFrame x:Name="VideoFrame"><Grid>
+     <Border x:Name="VideoViewport" Background="#000000" CornerRadius="11"/>
+     <Border x:Name="IdleOverlay" CornerRadius="11" ClipToBounds="True"><local:IdleLandscape x:Name="IdleScene"/></Border>
+     <Border x:Name="SongFlowOverlay" Background="{StaticResource Bg}" CornerRadius="11" Visibility="Collapsed">
+      <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Margin="18">
+       <StackPanel x:Name="TransitionPanel" Width="420" Visibility="Collapsed">
+        <TextBlock x:Name="TransitionTitle" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontSize="40" FontWeight="Bold"/>
+        <TextBlock x:Name="TransitionArtist" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Foreground="{StaticResource Sub}" FontSize="22" Margin="0,16,0,0"/>
+       </StackPanel>
+      </Viewbox>
+     </Border>
+     <Border x:Name="ScoreResultOverlay" Background="{StaticResource Bg}" CornerRadius="11" Visibility="Collapsed">
+      <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Margin="16"><StackPanel Width="620">
+       <TextBlock x:Name="ResultTitle" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontSize="24" FontWeight="Bold" Margin="0,9,0,0"/>
+       <TextBlock x:Name="ResultArtist" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Foreground="{StaticResource Sub}" FontSize="13" Margin="0,5,0,0"/>
+       <StackPanel x:Name="SingleResultSummary">
+       <TextBlock x:Name="ResultPitch" HorizontalAlignment="Center" Foreground="{StaticResource Accent}" FontSize="64" FontWeight="SemiBold" Margin="0,22,0,0" Text="—"/>
+       <ScrollViewer x:Name="ResultRecordViewport" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" PreviewMouseWheel="History_MouseWheel" Margin="0,22,0,0"><ScrollViewer.Resources><Style TargetType="ScrollBar" BasedOn="{StaticResource HistoryScrollBar}"/></ScrollViewer.Resources><local:PitchGuide x:Name="ResultOverview" Overview="True" Height="112"/></ScrollViewer>
+       </StackPanel>
+      </StackPanel></Viewbox>
+     </Border>
+    </Grid></local:VideoFrame>
+    <Border x:Name="ScoringBar" Grid.Row="1" Background="{StaticResource PanelBrush}" CornerRadius="8" Padding="12,8" Margin="0,8,0,0">
+      <StackPanel>
+       <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><local:Icon x:Name="ScoringStateIcon" Kind="audio-lines" Width="15" Height="15" Foreground="{StaticResource Sub}" Margin="0,0,6,0" Visibility="Collapsed"/><TextBlock x:Name="ScoringMessage" Grid.Column="1" Foreground="{StaticResource Sub}" FontSize="12" TextWrapping="Wrap"/></Grid>
+       <Grid x:Name="ScoreBody" Visibility="Collapsed">
+        <local:PitchGuide x:Name="MelodyGuide" Height="112" Visibility="Collapsed"/>
+       </Grid>
+      </StackPanel>
+    </Border>
+   </Grid>
+   <Border x:Name="Catalog" Grid.Column="1" BorderBrush="{StaticResource Line}" BorderThickness="1,0,0,0" Padding="20,0,0,0">
+    <TabControl x:Name="LibraryTabs" Style="{StaticResource SideTabs}">
+     <TabItem x:Name="QueueTab" Style="{StaticResource SideTab}"><TabItem.Header><StackPanel Orientation="Horizontal" HorizontalAlignment="Center"><local:Icon Kind="list" Width="15" Height="15" Margin="0,0,7,0"/><TextBlock Text="待播清單" FontSize="15"/><TextBlock x:Name="QueueCount" Text="0 首" Foreground="{StaticResource Sub}" FontSize="12" Margin="8,0,0,0"/></StackPanel></TabItem.Header>
+      <Grid x:Name="QueueArea"><Grid.RowDefinitions><RowDefinition Height="42"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+       <DockPanel x:Name="QueueToolbar" LastChildFill="False" Margin="0,0,0,6"><CheckBox x:Name="ShowPlayedToggle" DockPanel.Dock="Right" Content="顯示已播放" FontSize="12" VerticalAlignment="Center" Checked="ShowPlayed_Changed" Unchecked="ShowPlayed_Changed"/></DockPanel>
+       <ListBox x:Name="QueueList" Grid.Row="1" AutomationProperties.Name="待播清單"><ListBox.ItemTemplate><DataTemplate>
+      <Border BorderBrush="{StaticResource Line}" BorderThickness="0,0,0,1" Padding="0,9"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="Auto" MinWidth="26"/><ColumnDefinition Width="42"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto" MinWidth="40"/><ColumnDefinition Width="144"/></Grid.ColumnDefinitions>
+       <TextBlock Text="{Binding Order}" FontSize="12" Foreground="{Binding RowBrush}"/>
+       <Border Grid.Column="1" Width="32" Height="32" CornerRadius="5" Background="{Binding CoverBrush}" Opacity="{Binding CoverOpacity}"><TextBlock Text="{Binding Song.Initial}" FontSize="14" HorizontalAlignment="Center"/></Border>
+       <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="2,0,5,0"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="{Binding Song.Title}" TextTrimming="CharacterEllipsis" Foreground="{Binding TitleBrush}"/><Border Grid.Column="1" Background="{Binding BadgeBrush}" CornerRadius="4" Margin="6,0,0,0" Padding="4,1" Visibility="{Binding BadgeVisible}"><TextBlock Text="{Binding Badge}" Foreground="{Binding RowBrush}" FontSize="11"/></Border></Grid><TextBlock Text="{Binding Song.Artist}" Margin="0,3,0,0" FontSize="12" TextTrimming="CharacterEllipsis" Foreground="{StaticResource Sub}"/></StackPanel>
+       <TextBlock Grid.Column="3" Text="{Binding Song.Clock}" Foreground="{StaticResource Sub}" FontSize="12" HorizontalAlignment="Right"/>
+       <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Right">
+        <Button Style="{StaticResource IconButton}" Width="30" Height="30" MinHeight="30" Padding="6" IsEnabled="{Binding CanReview}" Tag="{Binding Id}" ToolTip="{Binding ReviewHint}" ToolTipService.ShowOnDisabled="True" AutomationProperties.Name="回顧演唱" Click="QueueReview_Click"><local:Icon Kind="audio-lines" Width="14" Height="14" Foreground="{StaticResource Sub}"/></Button>
+        <Button Width="26" Height="30" MinHeight="30" Padding="5" Visibility="{Binding ReorderVisible}" IsEnabled="{Binding CanUp}" Tag="{Binding Id}" AutomationProperties.Name="上移" Click="QueueUp_Click"><local:Icon Kind="up" Width="14" Height="14" Foreground="{StaticResource Sub}"/></Button>
+        <Button Width="26" Height="30" MinHeight="30" Padding="5" Visibility="{Binding ReorderVisible}" IsEnabled="{Binding CanDown}" Tag="{Binding Id}" AutomationProperties.Name="下移" Click="QueueDown_Click"><local:Icon Kind="down" Width="14" Height="14" Foreground="{StaticResource Sub}"/></Button>
+        <Button Width="26" Height="30" MinHeight="30" Padding="5" Visibility="{Binding RemoveVisible}" Tag="{Binding Id}" AutomationProperties.Name="從待播清單移除" Click="QueueRemove_Click"><local:Icon Kind="close" Width="14" Height="14" Foreground="{StaticResource Sub}"/></Button>
+       </StackPanel>
+      </Grid></Border>
+     </DataTemplate></ListBox.ItemTemplate></ListBox>
+       <TextBlock x:Name="QueueEmpty" Grid.Row="1" Text="目前沒有播放任何歌曲" HorizontalAlignment="Center" Foreground="{StaticResource Sub}" FontSize="13"/>
+      </Grid>
+     </TabItem>
+     <TabItem x:Name="SongLibraryTab" Style="{StaticResource SideTab}" IsSelected="True"><TabItem.Header><StackPanel Orientation="Horizontal" HorizontalAlignment="Center"><local:Icon Kind="music" Width="15" Height="15" Margin="0,0,7,0"/><TextBlock Text="歌曲庫" FontSize="15"/><TextBlock x:Name="LibraryCount" Foreground="{StaticResource Sub}" FontSize="12" Margin="8,0,0,0"/></StackPanel></TabItem.Header>
+      <Grid><Grid.RowDefinitions><RowDefinition Height="56"/><RowDefinition x:Name="PopularRow" Height="42"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+       <Border x:Name="SearchSurface" Grid.Row="0" BorderThickness="1" Background="{StaticResource PanelBrush}" CornerRadius="8" Margin="0,7,0,7"><Border.Style><Style TargetType="Border"><Setter Property="BorderBrush" Value="{StaticResource Line}"/><Style.Triggers><DataTrigger Binding="{Binding IsKeyboardFocusWithin,ElementName=SearchBox}" Value="True"><Setter Property="BorderBrush" Value="{StaticResource Accent}"/></DataTrigger></Style.Triggers></Style></Border.Style><Grid>
+     <Grid.ColumnDefinitions><ColumnDefinition Width="36"/><ColumnDefinition Width="*"/><ColumnDefinition Width="34"/></Grid.ColumnDefinitions><local:Icon Kind="search" Foreground="{StaticResource Sub}" Width="16" Height="16"/>
+     <TextBox x:Name="SearchBox" Grid.Column="1" BorderThickness="0" Background="Transparent" Padding="0,10" AutomationProperties.Name="搜尋歌名或歌手" TextChanged="Search_Changed"/>
+     <TextBlock x:Name="SearchPlaceholder" Grid.Column="1" Text="搜尋歌名或歌手" Foreground="{StaticResource Sub}" IsHitTestVisible="False"/>
+     <Button x:Name="ClearSearchButton" Grid.Column="2" Style="{StaticResource IconButton}" AutomationProperties.Name="清除搜尋" Click="ClearSearch_Click" Visibility="Collapsed"><local:Icon Kind="close" Width="14" Height="14" Foreground="{StaticResource Sub}"/></Button>
+    </Grid></Border>
+       <DockPanel x:Name="CatalogToolbar" Grid.Row="1" LastChildFill="False" Margin="0,0,0,6"><Button x:Name="AddSongButton" DockPanel.Dock="Right" Style="{StaticResource PrimaryButton}" Click="AddSong_Click" AutomationProperties.Name="加入歌曲"><StackPanel Orientation="Horizontal"><local:Icon Kind="plus" Width="15" Height="15" Margin="0,0,6,0"/><TextBlock Text="加入歌曲" FontSize="12"/></StackPanel></Button><StackPanel x:Name="PopularLabel" Orientation="Horizontal"><local:Icon Kind="flame" Width="14" Height="14" Foreground="{StaticResource Sub}" Margin="0,0,6,0"/><TextBlock Text="熱門歌曲" FontSize="12" Foreground="{StaticResource Sub}"/></StackPanel></DockPanel>
+       <ListBox x:Name="SongList" Grid.Row="2" AutomationProperties.Name="歌曲庫搜尋結果" ScrollViewer.ScrollChanged="Songs_ScrollChanged"><ListBox.ItemTemplate><DataTemplate>
+     <local:QueueAddedFeedback AutomationProperties.Name="{Binding Song.Title}" AutomationProperties.LiveSetting="Polite"><local:QueueAddedFeedback.Style><Style TargetType="local:QueueAddedFeedback"><Setter Property="AutomationProperties.ItemStatus" Value=""/><Style.Triggers><Trigger Property="IsConfirming" Value="True"><Setter Property="AutomationProperties.ItemStatus" Value="已加入待播清單"/></Trigger></Style.Triggers></Style></local:QueueAddedFeedback.Style>
+     <Border BorderBrush="{StaticResource Line}" BorderThickness="0,0,0,1" Padding="0,12"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="Auto" MinWidth="25"/><ColumnDefinition Width="53"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto" MinWidth="39"/><ColumnDefinition Width="72"/></Grid.ColumnDefinitions>
+      <TextBlock Text="{Binding Rank}" FontSize="12" Foreground="{StaticResource Sub}"/>
+      <Border Grid.Column="1" Width="42" Height="42" CornerRadius="7" Background="{Binding CoverBrush}" HorizontalAlignment="Left"><TextBlock Text="{Binding Song.Initial}" FontSize="19" HorizontalAlignment="Center"/></Border>
+      <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="0,0,5,0"><local:MarqueeText Text="{Binding Song.Title}" Foreground="{Binding TitleBrush}"/><TextBlock Text="{Binding Song.Artist}" FontSize="12" Foreground="{StaticResource Sub}" Margin="0,3,0,0" TextTrimming="CharacterEllipsis"/></StackPanel>
+      <TextBlock Grid.Column="3" Text="{Binding Song.Clock}" Foreground="{StaticResource Sub}" FontSize="12" HorizontalAlignment="Right"/>
+      <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Right"><Button Width="31" Height="31" MinHeight="31" Padding="6" BorderBrush="{StaticResource Line}" BorderThickness="1" Background="{StaticResource PanelBrush}" Foreground="{StaticResource Accent}" Tag="{Binding Song}" ToolTip="加入待播清單" AutomationProperties.Name="加入待播清單" Click="Enqueue_Click"><local:Icon Width="15" Height="15"><local:Icon.Style><Style TargetType="local:Icon"><Setter Property="Kind" Value="plus"/><Style.Triggers><DataTrigger Binding="{Binding IsConfirming,RelativeSource={RelativeSource AncestorType=local:QueueAddedFeedback}}" Value="True"><Setter Property="Kind" Value="check"/></DataTrigger></Style.Triggers></Style></local:Icon.Style></local:Icon></Button><Button Style="{StaticResource DeleteSongButton}" Width="31" Height="31" MinHeight="31" Padding="7" Tag="{Binding Song}" Margin="4,0,0,0" ToolTip="從歌曲庫移除" AutomationProperties.Name="從歌曲庫移除" Click="DeleteSong_Click"><local:Icon Kind="trash" Width="15" Height="15"/></Button></StackPanel>
+     </Grid></Border>
+    </local:QueueAddedFeedback>
+    </DataTemplate></ListBox.ItemTemplate></ListBox>
+       <TextBlock x:Name="LibraryEmpty" Grid.Row="2" Foreground="{StaticResource Sub}" Text="尚未加入歌曲" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"/>
+      </Grid>
+     </TabItem>
+    </TabControl>
+   </Border>
+  </Grid>
+  <Border Grid.Row="2" Background="{StaticResource PanelBrush}" BorderBrush="{StaticResource Line}" BorderThickness="0,1,0,0" Padding="20,13,20,16"><StackPanel>
+   <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+     <Button x:Name="PauseButton" Style="{StaticResource PlayButton}" Width="40" Height="40" Background="{StaticResource Accent}" Foreground="#102B29" Padding="9" ToolTip="播放" AutomationProperties.Name="播放" Click="Pause_Click"><local:Icon x:Name="PlayIcon" Kind="play" Width="20" Height="20"/></Button>
+     <Button x:Name="CutButton" Style="{StaticResource IconButton}" ToolTip="切歌" AutomationProperties.Name="切歌" Click="Cut_Click" Margin="4,0,0,0"><local:Icon Kind="square" Foreground="{StaticResource Sub}"/></Button>
+     <Button x:Name="RestartButton" Style="{StaticResource IconButton}" ToolTip="重唱" AutomationProperties.Name="重唱" Click="Restart_Click"><local:Icon Kind="repeat" Foreground="{StaticResource Sub}"/></Button>
+     <CheckBox x:Name="AutoPlayNextToggle" Content="自動播放下一首" FontSize="11" Margin="12,0,0,0" VerticalAlignment="Center" AutomationProperties.Name="自動播放下一首" Checked="AutoPlayNext_Changed" Unchecked="AutoPlayNext_Changed"/>
+    </StackPanel>
+    <Border x:Name="AudioModeGroup" Grid.Column="1" VerticalAlignment="Center" Background="{StaticResource Raised}" CornerRadius="8" Padding="3" Margin="12,0,32,0"><StackPanel Orientation="Horizontal">
+     <Button x:Name="OriginalButton" ToolTip="導唱" AutomationProperties.Name="導唱" Click="Original_Click"><StackPanel Orientation="Horizontal"><local:Icon Kind="mic" Width="14" Height="14" Margin="0,0,6,0"/><TextBlock Text="導唱" FontSize="12"/></StackPanel></Button>
+     <Button x:Name="InstrumentalButton" ToolTip="伴奏" AutomationProperties.Name="伴奏" Click="Instrumental_Click"><StackPanel Orientation="Horizontal"><local:Icon Kind="music" Width="14" Height="14" Margin="0,0,6,0"/><TextBlock Text="伴奏" FontSize="12"/></StackPanel></Button>
+    </StackPanel></Border>
+    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+    <Border x:Name="PitchGroup" Width="192" Background="{StaticResource Raised}" CornerRadius="8" Padding="3"><UniformGrid Rows="1" Columns="3">
+     <Button x:Name="KeyDownButton" Content="降調" FontSize="12" ToolTip="降調" Click="KeyDown_Click"/>
+     <Border BorderBrush="{StaticResource Line}" BorderThickness="1,0" Margin="2,0"><Button x:Name="KeyResetButton" Content="正常調" FontSize="12" ToolTip="正常調" AutomationProperties.Name="正常調" Click="KeyReset_Click"/></Border>
+     <Button x:Name="KeyUpButton" Content="升調" FontSize="12" ToolTip="升調" Click="KeyUp_Click"/>
+    </UniformGrid></Border>
+    <Border x:Name="EchoGroup" Width="192" Background="{StaticResource Raised}" CornerRadius="8" Padding="3" Margin="12,0,0,0"><UniformGrid Rows="1" Columns="3">
+     <Button x:Name="EchoDownButton" Content="迴聲小" FontSize="12" ToolTip="減少迴聲" AutomationProperties.Name="減少迴聲" Click="EchoDown_Click"/>
+     <Border BorderBrush="{StaticResource Line}" BorderThickness="1,0" Margin="2,0"><Button x:Name="EchoResetButton" Content="正常" FontSize="12" ToolTip="正常迴聲" AutomationProperties.Name="正常迴聲" Click="EchoReset_Click"/></Border>
+     <Button x:Name="EchoUpButton" Content="迴聲大" FontSize="12" ToolTip="增加迴聲" AutomationProperties.Name="增加迴聲" Click="EchoUp_Click"/>
+    </UniformGrid></Border>
+    </StackPanel>
+    <StackPanel Grid.Column="3" Orientation="Horizontal" Margin="24,0,0,0" VerticalAlignment="Center">
+     <CheckBox x:Name="ScoringToggle" Content="評分系統" FontSize="12" VerticalAlignment="Center" AutomationProperties.Name="評分系統" Checked="Scoring_Changed" Unchecked="Scoring_Changed"/>
+     <CheckBox x:Name="SubtitlesToggle" Content="顯示歌詞(如果有)" FontSize="12" Margin="16,0,0,0" VerticalAlignment="Center" AutomationProperties.Name="顯示歌詞(如果有)" Checked="Subtitles_Changed" Unchecked="Subtitles_Changed"/>
+    </StackPanel>
+    <Grid x:Name="VolumeControls" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="16,0,20,0">
+     <Grid.ColumnDefinitions><ColumnDefinition Width="34"/><ColumnDefinition Width="78"/><ColumnDefinition Width="42"/></Grid.ColumnDefinitions>
+     <Grid.RowDefinitions><RowDefinition Height="26"/><RowDefinition Height="26"/></Grid.RowDefinitions>
+     <Button x:Name="MuteButton" Style="{StaticResource IconButton}" Height="26" MinHeight="26" Padding="7,4" AutomationProperties.Name="靜音" Click="Mute_Click"><local:Icon x:Name="VolumeIcon" Kind="volume" Foreground="{StaticResource Sub}"/></Button>
+     <Slider x:Name="VolumeSlider" Grid.Column="1" Width="78" Minimum="0" Maximum="100" Value="100" IsMoveToPointEnabled="True" TickFrequency="1" IsSnapToTickEnabled="True" AutomationProperties.Name="喇叭音量" ValueChanged="Volume_Changed"/>
+     <TextBlock x:Name="VolumeLabel" Grid.Column="2" Text="100%" Foreground="{StaticResource Sub}" Width="42" TextAlignment="Right" FontSize="12"/>
+     <Button x:Name="MicrophoneMuteButton" Grid.Row="1" Style="{StaticResource IconButton}" Height="26" MinHeight="26" Padding="7,4" AutomationProperties.Name="麥克風靜音" Click="MicrophoneMute_Click"><local:Icon x:Name="MicrophoneIcon" Kind="mic" Width="18" Height="18" Foreground="{StaticResource Sub}"/></Button>
+     <Slider x:Name="MicrophoneVolumeSlider" Grid.Row="1" Grid.Column="1" Width="78" Minimum="0" Maximum="100" Value="100" IsMoveToPointEnabled="True" TickFrequency="1" IsSnapToTickEnabled="True" AutomationProperties.Name="麥克風音量" ValueChanged="MicrophoneVolume_Changed"/>
+     <TextBlock x:Name="MicrophoneVolumeLabel" Grid.Row="1" Grid.Column="2" Text="100%" Foreground="{StaticResource Sub}" Width="42" TextAlignment="Right" FontSize="12"/>
+    </Grid>
+    <Button x:Name="FullscreenButton" Grid.Column="5" Style="{StaticResource IconButton}" ToolTip="全螢幕" AutomationProperties.Name="全螢幕" Click="Fullscreen_Click"><local:Icon x:Name="FullscreenIcon" Kind="expand" Foreground="{StaticResource Sub}"/></Button>
+   </Grid>
+  </StackPanel></Border>
+  <Border x:Name="Toast" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="16" Padding="14,9" CornerRadius="8" Background="{StaticResource Text}" Visibility="Collapsed"><TextBlock x:Name="ToastText" Foreground="{StaticResource Bg}" FontSize="12" TextWrapping="Wrap" MaxWidth="650"/></Border>
+ </Grid></Border></Viewbox>
+ <local:NativeVideoHost x:Name="VideoHost" HorizontalAlignment="Left" VerticalAlignment="Top" Focusable="False" SizeChanged="Video_SizeChanged"/>
+ </Grid>
+</Window>
+
+
+
+
+
+

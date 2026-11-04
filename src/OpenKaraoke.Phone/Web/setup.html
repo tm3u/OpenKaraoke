@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
+  <meta name="theme-color" content="#101419">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/setup.js" defer></script>
+  <title>OpenKaraoke 首次設定</title>
+</head>
+<body class="setup-page"><main>
+  <header class="setup-header"><img src="/logo.svg" width="24" height="24" alt=""><span>OpenKaraoke</span></header>
+  <h1>首次設定</h1>
+  <div id="setup-flow" hidden>
+    <div class="setup-platform" role="group" aria-label="手機種類">
+      <button type="button" data-platform="iphone" aria-pressed="true">iPhone</button>
+      <button type="button" data-platform="android" aria-pressed="false">Android</button>
+    </div>
+    <p id="setup-count" role="status" aria-live="polite">步驟 1 / 6</p>
+    <progress id="setup-progress" value="1" max="6" aria-label="設定進度"></progress>
+  </div>
+  <noscript><p>分步引導需要 JavaScript。你仍可依序閱讀下方完整步驟。</p></noscript>
+
+  <section class="setup-step" data-step="download" aria-labelledby="download-title">
+    <h2 id="download-title" tabindex="-1">下載憑證</h2>
+    <p>先和電腦設定核對憑證指紋，確認一致後再下載。</p>
+    <details><summary>核對憑證指紋</summary><p>下載前，和電腦設定中「憑證指紋」的內容核對。</p><code>{{fingerprint}}</code></details>
+    <a id="download-certificate" class="button primary" href="/ca.cer">下載憑證</a>
+  </section>
+
+  <section class="setup-step" data-step="files" aria-labelledby="files-title">
+    <h2 id="files-title" tabindex="-1">用「檔案」開啟憑證</h2>
+    <p class="setup-path">檔案 App → 下載項目</p>
+    <p>點選 <strong>OpenKaraoke-Local-CA.cer</strong>，依提示允許加入描述檔。</p>
+    <details><summary>Safari 已顯示「已下載描述檔」？</summary><p>可直接按「下一步」前往安裝。只下載到「檔案」，還不代表已安裝。</p></details>
+  </section>
+
+  <section class="setup-step" data-step="install" aria-labelledby="install-title">
+    <h2 id="install-title" tabindex="-1">安裝憑證</h2>
+    <p class="setup-path">設定 → 已下載描述檔</p>
+    <p>選擇 OpenKaraoke 的憑證，按右上角「安裝」，依提示輸入手機解鎖密碼並完成安裝。</p>
+    <details><summary>找不到「已下載描述檔」？</summary><p>到「設定 → 一般 → VPN 與裝置管理」查看。尚未安裝的描述檔會在下載 8 分鐘後被刪除；回「檔案」重新點開憑證，再進行安裝。</p></details>
+  </section>
+
+  <section id="iphone-trust" class="setup-step" data-step="trust" aria-labelledby="trust-title">
+    <h2 id="trust-title" tabindex="-1">開啟完整信任</h2>
+    <p class="setup-path">設定 → 一般 → 關於本機<br>→ 憑證信任設定</p>
+    <p>找到 <strong>OpenKaraoke Local Microphone CA</strong>，開啟完整信任的開關，並確認系統提示。</p>
+    <p class="setup-note">完整信任開關應為開啟。只安裝憑證，或在 Safari 警告中按「允許」，都不算完成這一步。</p>
+  </section>
+
+  <section class="setup-step" data-step="android-install" aria-labelledby="android-title">
+    <h2 id="android-title" tabindex="-1">Android：安裝 CA 憑證</h2>
+    <p>在手機的安全性設定中，安裝剛下載的 <strong>OpenKaraoke-Local-CA.cer</strong>，憑證用途選擇 CA 憑證。</p>
+    <p>選單位置依手機品牌不同，請依系統提示完成安裝。</p>
+  </section>
+
+  <section class="setup-step" data-step="connect" aria-labelledby="connect-title">
+    <h2 id="connect-title" tabindex="-1">掃描「連接麥克風」</h2>
+    <p>回到電腦的手機麥克風設定，用相機掃描<strong>右側「連接麥克風」QR Code</strong>，再用手機瀏覽器開啟。</p>
+    <p class="setup-note">左側「首次設定」用來安裝憑證；接下來請用右側 QR Code 收音。</p>
+    <details><summary>如何確認開對頁面？</summary><p>網址以 https:// 開頭，預設使用 8443 連接埠。頁面會顯示「手機麥克風」及「開啟麥克風」按鈕。iPhone 請使用 Safari。</p></details>
+  </section>
+
+  <section id="iphone-record" class="setup-step" data-step="record" aria-labelledby="record-title">
+    <h2 id="record-title" tabindex="-1">開啟麥克風</h2>
+    <p>在剛開啟的收音頁按「開啟麥克風」，並允許使用麥克風。等待連線完成，看到<strong>「收音中」</strong>再說話測試。</p>
+    <p class="setup-note">回到電腦按「測試收音」，確認有聲音後，再按「套用」保存來源；按「取消」會恢復原設定。</p>
+    <details><summary>螢幕常亮與停止收音</summary><p>最多兩支手機同時收音。收音時會要求螢幕常亮，請保持此頁面開啟並避免手動鎖屏。若無法常亮，可關閉低耗電模式後重新開啟麥克風，或暫時將 iPhone「設定 → 螢幕顯示與亮度 → 自動鎖定」設為「永不」。</p><p>要停止收音，按「關閉麥克風」。</p></details>
+  </section>
+
+  <details id="setup-help" class="setup-help">
+    <summary>需要協助？</summary>
+    <h3>信任設定找不到憑證</h3><p>只有下載還不夠。iPhone 請先<a href="#iphone/install">完成描述檔安裝</a>，再開啟完整信任。</p>
+    <h3>仍有私人連線警告</h3><p>iPhone 請<a href="#iphone/trust">確認完整信任</a>已開啟；Safari 的「允許」不能代替這個設定。關閉失敗的分頁，再掃描「連接麥克風」。</p>
+    <h3>顯示「尚未配對」</h3><p>重新掃描電腦目前的「連接麥克風」QR Code。停用、重啟服務或更換網路後，舊網址可能已失效。</p>
+  </details>
+  <nav id="setup-actions" class="setup-actions" aria-label="步驟導覽" hidden>
+    <button type="button" id="setup-previous">上一步</button>
+    <button type="button" id="setup-next">下一步</button>
+  </nav>
+</main></body></html>

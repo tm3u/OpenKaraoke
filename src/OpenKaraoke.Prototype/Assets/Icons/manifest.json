@@ -1,0 +1,147 @@
+{
+  "version": "1.17.0",
+  "source": "https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js",
+  "license": "ISC / Feather MIT",
+  "icons": [
+    {
+      "name": "music",
+      "sha256": "db965cee56ec059af193821811b1f59cdf49a5d0d05fa962c731e353bb591de9"
+    },
+    {
+      "name": "audio-lines",
+      "sha256": "2b226d21f3340ea7bc3f629c790f27d42a2961ce42e6b5230f904e7fdcaa311c"
+    },
+    {
+      "name": "list-music",
+      "sha256": "18b9aaf769083fb796b7449cdd374821621e0cedc4ed3ed20d8e80917bc145ad"
+    },
+    {
+      "name": "list-ordered",
+      "sha256": "97d0eb8cf294f7c99f157ed8466623d0c412f87e467be78b5c453f0f5d967e36"
+    },
+    {
+      "name": "list-plus",
+      "sha256": "3acdc3e825279d44745c1f54193f51d8fba3babafab17b4e9737cbca7e778049"
+    },
+    {
+      "name": "play",
+      "sha256": "d453da18ef12dcea204fd942c4159bf73d5bbd1338e5d6c8bb35fe455f5b070d"
+    },
+    {
+      "name": "pause",
+      "sha256": "be64b5271f8872ab7cffa53978831f4241cad5077b288de9ab13124c0b15be7e"
+    },
+    {
+      "name": "square",
+      "sha256": "4725b7128173843c3958ccd53de243c8be789de9765799cca0b5fafc0e37452b"
+    },
+    {
+      "name": "skip-forward",
+      "sha256": "8ac8a2adb8fb032923538582d61abdc30ca7b37fb471c61866498f2153475015"
+    },
+    {
+      "name": "rotate-ccw",
+      "sha256": "38fcbdec6bcbc5442c02671dba5fe07d7001a96c3444f5ff7a54ba65ff99e87f"
+    },
+    {
+      "name": "plus",
+      "sha256": "cd356d2fef86eae0da60e4a3375cbb4d513c9dcae39eee1b8ec36ddd114ef8d9"
+    },
+    {
+      "name": "minus",
+      "sha256": "5ab8c8139a0a56e5842d4f12ee9b09dd8d2bee06297ccf783ef38e9e01da2ef2"
+    },
+    {
+      "name": "x",
+      "sha256": "14ac177f1641c1a234e8becc302ca6b8d23971e4e0e44d689f7fb15d8260f86c"
+    },
+    {
+      "name": "search",
+      "sha256": "3658f1dbb9329d99f9d78217a8de2b01d9c25610ade71dcc69e0cc8a8600b24a"
+    },
+    {
+      "name": "trash-2",
+      "sha256": "0276a9cbe8eed0827cec45bb6e51cbece632d23b483103e4fac2e1d92439c143"
+    },
+    {
+      "name": "arrow-up",
+      "sha256": "d12be5735251f2a501c3016125aa61ec1bf4c23724fda01f855f2c3f88930c5e"
+    },
+    {
+      "name": "arrow-down",
+      "sha256": "9b371dd36e826c1b02eaecbd357353dfbcac9895178dd510cb4c62fa913fbce3"
+    },
+    {
+      "name": "chevron-down",
+      "sha256": "2e3f34c4ae2e1a14c29b9d54d6856510d84d7044566f8b9836335e112879d2ee"
+    },
+    {
+      "name": "chevron-right",
+      "sha256": "e6b197c0e66778df2d9781f96aa4efd2ecc8fb0fa5391dfa11ded55d875aff14"
+    },
+    {
+      "name": "copy",
+      "sha256": "5146bb8eabe23d341108bba880c30a19a7a85188fce8bb5ef9ca693303405f01"
+    },
+    {
+      "name": "maximize",
+      "sha256": "8f4c009926bc5ece91a72875fa7bc5caf395f347c11026ab207c2a4f7e042b66"
+    },
+    {
+      "name": "minimize",
+      "sha256": "e291c1ae491a1491103330735867187cf3752bd11324f7edc20678b70fb6dbb4"
+    },
+    {
+      "name": "mic",
+      "sha256": "9b9f95159357f50abd69645a0d47d926a3cb33b6c73fa6a675f73cfd487ee5eb"
+    },
+    {
+      "name": "mic-off",
+      "sha256": "fd7eb374f7dfd2491ab20e9446606e04edfeea501e764cec8e31e01c8c439929"
+    },
+    {
+      "name": "volume-2",
+      "sha256": "ee4f58c652f90253d87619ba3b96fbf14bdd8e9fa70f172ca21c36a9c9956625"
+    },
+    {
+      "name": "volume-x",
+      "sha256": "4387768848142dcc90e618136a9e74a4c0a1728b3d24fe06ec0bfb007a38d5ad"
+    },
+    {
+      "name": "flame",
+      "sha256": "9c24deec8513b8a81fdee4bc3f623b7e8a9fc6f692c1b83b27bd76f373abb0e4"
+    },
+    {
+      "name": "folder-open",
+      "sha256": "bfeaf302cab433fd78bc7a7d45f1d12b8636b6a2b70e1ed1da3ac17e9f2b60b5"
+    },
+    {
+      "name": "download",
+      "sha256": "d38c7fd8e9d38c8156dd2cf6bc988ea713208e1248dcb80a5ab6c0567e4c7f3d"
+    },
+    {
+      "name": "package",
+      "sha256": "0d0178927b64f0c4263c2cf15c3ceaad2aed20c0ba603777ca014308337c9abd"
+    },
+    {
+      "name": "sparkles",
+      "sha256": "8264273aebd90ba0eb11a39f6bc18fd93a6b95504e10478dcb1470d691c6e2e3"
+    },
+    {
+      "name": "settings",
+      "sha256": "ef82c24a3a72983e1b3d6405f274792b09e5e32dda0ffdc8c351d9bc89d82487"
+    },
+    {
+      "name": "circle-check",
+      "sha256": "8d4b5ce7a6127151496370d25f17c6b673f59de043786014d2dd7291b6fd5dfe"
+    },
+    {
+      "name": "smartphone",
+      "sha256": "cd6fd8bfdf4ac8f67425ee7aafc8c7197d9f66298acee04e106d05684c934409"
+    },
+    {
+      "name": "check",
+      "sha256": "51496adbe520e8b454b6df393478855d9b7c1f0575485e050e87650417d5084c"
+    }
+  ]
+}

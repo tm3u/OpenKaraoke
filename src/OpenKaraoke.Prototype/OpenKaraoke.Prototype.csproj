@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets/openkaraoke.ico</ApplicationIcon>
+    <AssemblyName>OpenKaraoke</AssemblyName>
+    <Product>OpenKaraoke</Product>
+    <Version>1.0.1</Version>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="Assets/Icons/*.svg" />
+    <Resource Include="Assets/Icons/manifest.json" />
+    <Resource Include="Assets/openkaraoke.ico" />
+    <ProjectReference Include="../OpenKaraoke.Player/OpenKaraoke.Player.csproj" />
+    <ProjectReference Include="../OpenKaraoke.Library/OpenKaraoke.Library.csproj" />
+    <ProjectReference Include="../OpenKaraoke.Scoring/OpenKaraoke.Scoring.csproj" />
+    <ProjectReference Include="../OpenKaraoke.Phone/OpenKaraoke.Phone.csproj" />
+    <PackageReference Include="QRCoder" Version="1.8.0" />
+    <None Update="mpv-input.conf" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

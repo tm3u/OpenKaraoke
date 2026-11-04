@@ -1,0 +1,22 @@
+<UserControl x:Class="OpenKaraoke.Prototype.IdleLandscape" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" IsHitTestVisible="False" ClipToBounds="True">
+ <Viewbox Stretch="UniformToFill"><Canvas x:Name="LandscapeCanvas" Width="720" Height="405" ClipToBounds="True">
+  <Rectangle Width="720" Height="405"><Rectangle.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="0,1"><GradientStop Color="#0C192B"/><GradientStop Color="#344356" Offset="1"/></LinearGradientBrush></Rectangle.Fill></Rectangle>
+  <Rectangle x:Name="DaySky" Width="720" Height="405"><Rectangle.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="0,1"><GradientStop Color="#6D9DBB"/><GradientStop Color="#D4D6C5" Offset="1"/></LinearGradientBrush></Rectangle.Fill></Rectangle>
+  <Rectangle x:Name="DuskSky" Width="720" Height="405" Opacity="0"><Rectangle.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="0,1"><GradientStop Color="#3D475B"/><GradientStop Color="#AA7B7D" Offset="1"/></LinearGradientBrush></Rectangle.Fill></Rectangle>
+  <Canvas x:Name="Stars" Opacity="0">
+   <Ellipse Canvas.Left="52" Canvas.Top="54" Width="2" Height="2" Fill="#DCE8EC"/><Ellipse Canvas.Left="131" Canvas.Top="91" Width="2" Height="2" Fill="#DCE8EC"/>
+   <Ellipse Canvas.Left="210" Canvas.Top="42" Width="3" Height="3" Fill="#DCE8EC"/><Ellipse Canvas.Left="286" Canvas.Top="78" Width="2" Height="2" Fill="#DCE8EC"/>
+   <Ellipse Canvas.Left="399" Canvas.Top="39" Width="2" Height="2" Fill="#DCE8EC"/><Ellipse Canvas.Left="476" Canvas.Top="87" Width="2" Height="2" Fill="#DCE8EC"/>
+   <Ellipse Canvas.Left="548" Canvas.Top="38" Width="3" Height="3" Fill="#DCE8EC"/><Ellipse Canvas.Left="655" Canvas.Top="106" Width="2" Height="2" Fill="#DCE8EC"/>
+   <Ellipse Canvas.Left="83" Canvas.Top="156" Width="2" Height="2" Fill="#DCE8EC"/><Ellipse Canvas.Left="617" Canvas.Top="164" Width="2" Height="2" Fill="#DCE8EC"/>
+  </Canvas>
+  <Canvas><Canvas.RenderTransform><RotateTransform x:Name="Orbit" CenterX="360" CenterY="350"/></Canvas.RenderTransform>
+   <Ellipse x:Name="Sun" Canvas.Left="336" Canvas.Top="76" Width="48" Height="48" Fill="#F5DFAB"/>
+   <Ellipse Canvas.Left="346" Canvas.Top="586" Width="28" Height="28" Fill="#E0E5DB"/>
+  </Canvas>
+  <Canvas x:Name="BackNotes"/>
+  <Polygon Points="0,286 75,254 182,318 318,130 454,292 592,214 720,286 720,405 0,405" Fill="#203E4A"/>
+  <Polygon Points="0,310 102,357 262,291 420,391 592,268 720,310 720,405 0,405" Fill="#152D38"/>
+  <Canvas x:Name="FrontNotes"/>
+ </Canvas></Viewbox>
+</UserControl>

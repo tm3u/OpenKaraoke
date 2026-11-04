@@ -1,0 +1,8 @@
+.tools/
+tools/media/
+**/bin/
+**/obj/
+artifacts/
+dist/
+fixtures/*.mp4
+*.user

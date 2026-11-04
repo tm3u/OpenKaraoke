@@ -1,0 +1,11 @@
+{
+  "model": "SwiftF0 0.3.0",
+  "source": "https://github.com/lars76/swift-f0/tree/v0.3.0",
+  "url": "https://raw.githubusercontent.com/lars76/swift-f0/v0.3.0/swift_f0/model.onnx",
+  "sha256": "6385e8c2ebc3872e82c9ff5946228de44cd3be77a750ea53698b7dbfe94b0a22",
+  "license": "MIT",
+  "sampleRate": 16000,
+  "hop": 256,
+  "lookaheadFrames": 10,
+  "leftFrames": 11
+}

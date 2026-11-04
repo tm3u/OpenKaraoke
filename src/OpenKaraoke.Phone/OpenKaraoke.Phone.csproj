@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0-windows</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><RestorePackagesWithLockFile>true</RestorePackagesWithLockFile></PropertyGroup>
+  <ItemGroup><FrameworkReference Include="Microsoft.AspNetCore.App"/><ProjectReference Include="../OpenKaraoke.Scoring/OpenKaraoke.Scoring.csproj"/><EmbeddedResource Include="Web/*"/><EmbeddedResource Include="../../docs/assets/logo.svg" LogicalName="OpenKaraoke.Phone.Web.logo.svg"/></ItemGroup>
+</Project>

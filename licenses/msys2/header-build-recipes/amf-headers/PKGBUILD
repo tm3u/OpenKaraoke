@@ -1,0 +1,28 @@
+# Maintainer: ImperatorS79 <fevrier.simon@gmail.com>
+
+_realname=amf-headers
+pkgbase=mingw-w64-${_realname}
+pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}"
+pkgver=1.5.3
+pkgrel=1
+pkgdesc='Header files for AMD Advanced Media Framework (mingw-w64)'
+arch=('any')
+mingw_arch=('mingw64' 'ucrt64' 'clang64' 'clangarm64')
+url='https://github.com/GPUOpen-LibrariesAndSDKs/AMF/'
+msys2_repository_url='https://github.com/GPUOpen-LibrariesAndSDKs/AMF'
+license=('spdx:MIT')
+source=("https://github.com/GPUOpen-LibrariesAndSDKs/AMF/archive/v${pkgver}/${_realname}-${pkgver}.tar.gz")
+sha256sums=('eb7d7d14c239117478f229cf174dc359fa2ba1e0817a7cb16277cc5251709f0f')
+
+prepare() {
+  cd "AMF-${pkgver}"
+}
+
+package() {
+    mkdir -p "${pkgdir}${MINGW_PREFIX}"/include/AMF/
+    cp -r "${srcdir}/AMF-${pkgver}"/amf/public/include/core/ "${pkgdir}${MINGW_PREFIX}"/include/AMF/
+    cp -r "${srcdir}/AMF-${pkgver}"/amf/public/include/components/ "${pkgdir}${MINGW_PREFIX}"/include/AMF/
+
+    install -D -m644 "${srcdir}/AMF-${pkgver}"/LICENSE.txt \
+      "${pkgdir}"${MINGW_PREFIX}/share/licenses/${_realname}/LICENSE
+}

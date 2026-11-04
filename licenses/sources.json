@@ -1,0 +1,246 @@
+{
+  "schema_version": 2,
+  "scope": "記錄目前散布元件的版本、來源、授權及檔案雜湊；軟體授權不授予歌曲或平台內容的利用權利。",
+  "project_license": "GPL-3.0-only",
+  "project_source_archive": "OpenKaraoke-Standalone-source.zip",
+  "ai_package_notices": "licenses/ai/manifest.json",
+  "components": [
+    {
+      "name": "mpv",
+      "distribution": "bundled",
+      "version": "0.41.0-10",
+      "binaries": [
+        {
+          "path": "tools/mpv/mpv.exe",
+          "sha256": "193b4174044930d5d535afc4b9e69449dc25d2b0ebf0b8234a904d742f5f4569"
+        }
+      ],
+      "binary_package": {
+        "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-mpv-0.41.0-10-any.pkg.tar.zst",
+        "sha256": "337340960cb05d9b27d5d897cdbbe38cba5605a860aae95f94bea18522507e88"
+      },
+      "source_package": "mingw-w64-mpv-0.41.0-10.src.tar.zst",
+      "source_manifest": "tools/manifest.json",
+      "source_archive_directory": "OpenKaraoke-Standalone-source.zip!/OpenKaraoke-Standalone-source/third-party/sources/",
+      "license_files": [
+        {
+          "path": "licenses/msys2/source-notices/mingw-w64-mpv/mpv-0.41.0/Copyright",
+          "sha256": "bfe9ee4cceabcb8ecbfadf208d04156f73d801e6a57369a5606bb8341e204a23"
+        },
+        {
+          "path": "licenses/msys2/source-notices/mingw-w64-mpv/mpv-0.41.0/LICENSE.GPL",
+          "sha256": "edaef632cbb643e4e7a221717a6c441a4c1a7c918e6e4d56debc3d8739b233f6"
+        },
+        {
+          "path": "licenses/msys2/source-notices/mingw-w64-mpv/mpv-0.41.0/LICENSE.LGPL",
+          "sha256": "72b672113d642cbb8ef5dcc76938db801983c56e50b1400ab930f1a64d6dc8d9"
+        }
+      ],
+      "build_information": {
+        "path": "licenses/msys2/Build-Info.json",
+        "sha256": "fc5be020f9c6ac6f32d88e8c6a4c1632b2817c9237fcf30a33df48b6342489a8"
+      },
+      "corresponding_source_status": "執行檔、全部隨附 DLL、建置腳本及修補均對應固定來源；來源 ZIP 一併提供原生套件、靜態／標頭依賴與 Rust registry 套件來源。"
+    },
+    {
+      "name": "FFmpeg",
+      "distribution": "bundled",
+      "version": "9.0.2-2",
+      "binaries": [
+        {
+          "path": "tools/ffmpeg/ffmpeg.exe",
+          "sha256": "d665ac0bb1146b158872a19ee8395de244e3f32a7668066ba7fd21f102565f1d"
+        },
+        {
+          "path": "tools/ffmpeg/ffprobe.exe",
+          "sha256": "66d0be803e6e5a58dbc8a9cc1fee9aaa783439d026520590185466de6f8b7faa"
+        }
+      ],
+      "binary_package": {
+        "url": "https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-ffmpeg-9.0.2-2-any.pkg.tar.zst",
+        "sha256": "35e9c314af3d80ba14ded8a7950ea2cb66195c9ec8b78a3983f64c4c36e4c083"
+      },
+      "source_package": "mingw-w64-ffmpeg-9.0.2-2.src.tar.zst",
+      "source_manifest": "tools/manifest.json",
+      "source_archive_directory": "OpenKaraoke-Standalone-source.zip!/OpenKaraoke-Standalone-source/third-party/sources/",
+      "license_files": [
+        {
+          "path": "licenses/msys2/source-notices/mingw-w64-ffmpeg/ffmpeg-9.0.2/COPYING.LGPLv2.1",
+          "sha256": "246041b6ecf9bc32d718a62c57877c78b5eb397b6467e74ed7ae2626ab189c30"
+        },
+        {
+          "path": "licenses/msys2/source-notices/mingw-w64-ffmpeg/ffmpeg-9.0.2/COPYING.GPLv2",
+          "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+        },
+        {
+          "path": "licenses/msys2/source-notices/mingw-w64-ffmpeg/ffmpeg-9.0.2/COPYING.LGPLv3",
+          "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+        },
+        {
+          "path": "licenses/msys2/source-notices/mingw-w64-ffmpeg/ffmpeg-9.0.2/COPYING.GPLv3",
+          "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+        },
+        {
+          "path": "licenses/msys2/source-notices/mingw-w64-ffmpeg/ffmpeg-9.0.2/LICENSE.md",
+          "sha256": "2e1d16c72fd74e12063776371da757322f8b77589386532f4fd8634bde7de1af"
+        }
+      ],
+      "build_information": {
+        "path": "licenses/msys2/Build-Info.json",
+        "sha256": "fc5be020f9c6ac6f32d88e8c6a4c1632b2817c9237fcf30a33df48b6342489a8"
+      },
+      "corresponding_source_status": "執行檔、全部隨附 DLL、建置腳本及修補均對應固定來源；來源 ZIP 一併提供原生套件、靜態／標頭依賴與 Rust registry 套件來源。"
+    },
+    {
+      "name": "Microsoft .NET and WPF native components",
+      "distribution": "bundled",
+      "version": "10.0.14",
+      "binaries": [
+        {
+          "runtime_path": "coreclr.dll",
+          "sha256": "1bc65b8d45474b19adf3ca85ce881087aff599ffc72b2c1a323e878227757b65",
+          "file_version": "10,0,1426,52326 @Commit: 0427b9abbead3fa64c6655eb4290c537397131fa",
+          "license": ".NET Library license"
+        },
+        {
+          "runtime_path": "PresentationNative_cor3.dll",
+          "sha256": "091609705a031d5832f21548291c2670f06eadd781d465d3e1a5fad3772adc91",
+          "file_version": "10,0,726,45202 @Commit: 71ed74777b50c201c68f9f1c0576f5b3a969c395",
+          "license": ".NET Library license"
+        },
+        {
+          "runtime_path": "vcruntime140_cor3.dll",
+          "sha256": "d5e4d9a3e835fa679450145d6a7d94e36573a509317111904d9b3712c30d9066",
+          "file_version": "14.44.35211.0",
+          "license": ".NET Library license"
+        },
+        {
+          "runtime_path": "wpfgfx_cor3.dll",
+          "sha256": "48a8e8100fd38183a0fabfe7fad0bf9e9d28d65a0827298ef0910b31e6e94cbd",
+          "file_version": "10,0,1426,52326 @Commit: 0427b9abbead3fa64c6655eb4290c537397131fa",
+          "license": ".NET Library license"
+        },
+        {
+          "runtime_path": "D3DCompiler_47_cor3.dll",
+          "sha256": "a05f99734f7c4822fefc12b367af21fd0976ed6608752fb1e1e80b6ece7ecbbb",
+          "file_version": "10.0.26100.7705 (WinBuild.160101.0800)",
+          "license": "Windows SDK license"
+        }
+      ],
+      "upstream_source": "https://github.com/dotnet/runtime/tree/v10.0.14",
+      "license_information_source": "https://github.com/dotnet/core/blob/ecab73977111148e1ba2745ba41ca6bfeb565298/license-information-windows.md",
+      "license_files": [
+        {
+          "path": "licenses/dotnet-MIT.txt",
+          "sha256": "cfc21f5e8bd655ae997eec916138b707b1d290b83272c02a95c9f821b8c87310"
+        },
+        {
+          "path": "licenses/dotnet-LICENSE.txt",
+          "sha256": "7f6839a61ce892b79c6549e2dc5a81fdbd240a0b260f8881216b45b7fda8b45d"
+        },
+        {
+          "path": "licenses/dotnet-Windows-License-Information.md",
+          "sha256": "3bdf7142d570f11780d1a5fcb6cbe47f5cf4a15bc634acf8db93fe3be8837119"
+        },
+        {
+          "path": "licenses/Windows-SDK-License.md",
+          "sha256": "0b0f3f06e59fbf03e9b18e9688a90366ea26d9f95c3d82b302f97b1680b1199b"
+        },
+        {
+          "path": "licenses/Windows-SDK-REDIST.md",
+          "sha256": "ff4dc82936ef9e8449927a3d06ee1fca801933c1464ceee60fa14003eb656dd0"
+        }
+      ],
+      "license_status": "已依 Microsoft 的 Windows 元件授權區分保存適用全文與 REDIST 清單；相應原生元件不改授權為 GPL，散布與使用須遵守 Microsoft 條款。"
+    },
+    {
+      "name": "yt-dlp",
+      "distribution": "download-on-first-use",
+      "version": "2026.10.26",
+      "download_url": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.10.26/yt-dlp.exe",
+      "download_sha256": "f5389d3698ecde4ef06f4e6b1ce0294fe9ac1396228c8990b8d3416d6d177a7d",
+      "upstream_source": "https://github.com/yt-dlp/yt-dlp/archive/refs/tags/2026.10.26.tar.gz",
+      "license_files": [
+        {
+          "path": "licenses/yt-dlp-Unlicense.txt",
+          "sha256": "7e12e5df4bae12cb21581ba157ced20e1986a0508dd10d0e8a4ab9a4cf94e85c"
+        },
+        {
+          "path": "licenses/yt-dlp-ThirdPartyNotices.txt",
+          "sha256": "472aefe951c7db35e1657c1d13fd337140511ed6f2b329205105ad441c5a02b7"
+        }
+      ],
+      "license_sources": [
+        "https://raw.githubusercontent.com/yt-dlp/yt-dlp/2026.10.26/LICENSE",
+        "https://raw.githubusercontent.com/yt-dlp/yt-dlp/2026.10.26/THIRD_PARTY_LICENSES.txt"
+      ]
+    },
+    {
+      "name": "Deno",
+      "distribution": "download-on-first-use",
+      "version": "2.9.8",
+      "download_url": "https://github.com/denoland/deno/releases/download/v2.9.8/deno-x86_64-pc-windows-msvc.zip",
+      "download_sha256": "cba84b26e0df5ae7f74fc66b86a95b866872a86292ebd84fa1e959927edd93bf",
+      "upstream_source": "https://github.com/denoland/deno/archive/refs/tags/v2.9.8.tar.gz",
+      "license_files": [
+        {
+          "path": "licenses/Deno-MIT.txt",
+          "sha256": "f62497fffecc0852960c8d3e6934b9db86d16396e9b604072e923892cae3a588"
+        }
+      ],
+      "license_sources": [
+        "https://raw.githubusercontent.com/denoland/deno/v2.9.8/LICENSE.md"
+      ],
+      "scope": "此檔為 Deno 主程式的 MIT 授權；下載之執行檔相依元件仍須遵守其各自條款。"
+    },
+    {
+      "name": "HTDemucs model",
+      "distribution": "download-on-first-use",
+      "download_url": "https://dl.fbaipublicfiles.com/demucs/hybrid_transformer/955717e8-8726e21a.th",
+      "download_sha256": "8726e21a993978c7ba086d3872e7608d7d5bfca646ca4aca459ffda844faa8b4",
+      "upstream_source": "https://github.com/facebookresearch/demucs",
+      "license_files": [
+        {
+          "path": "licenses/ai/demucs/licenses/LICENSE",
+          "sha256": "cf9b17822d1fcd4ff32ccbe14183386fb3adf6f2ff92dc184130823f7fc28173"
+        }
+      ]
+    },
+    {
+      "name": "7-Zip reduced console",
+      "distribution": "development-only",
+      "version": "26.04",
+      "upstream_source": "https://github.com/ip7z/7zip/tree/26.04",
+      "license_files": [
+        {
+          "path": "licenses/7-Zip-License.txt",
+          "sha256": "dac8389b6bc39339537bc351772106afe7951cb242cdf03e855b67c3a683deb1"
+        }
+      ],
+      "license_sources": [
+        "https://raw.githubusercontent.com/ip7z/7zip/26.04/DOC/License.txt"
+      ],
+      "scope": "僅供 bootstrap 解壓縮，不隨執行或原始碼 ZIP 散布執行檔。"
+    },
+    {
+      "name": "playwright-core",
+      "distribution": "development-only",
+      "version": "1.56.1",
+      "upstream_source": "https://github.com/microsoft/playwright/tree/v1.56.1",
+      "license_files": [
+        {
+          "path": "licenses/Playwright-Apache-2.0.txt",
+          "sha256": "45873d00a0dd243596deb4aa23b2493b3d1f0671921bf2538ea431d7380220eb"
+        },
+        {
+          "path": "licenses/Playwright-NOTICE.txt",
+          "sha256": "6d602191187b35b9b01d2cffa01c8469c2c8d9de8a96f1bf868e0f264f51c81d"
+        },
+        {
+          "path": "licenses/Playwright-ThirdPartyNotices.txt",
+          "sha256": "450299275b0e56be82eb14dbec79a2395dfe956f8e3c0a35f901163c4eef036e"
+        }
+      ]
+    }
+  ]
+}
