@@ -14,22 +14,21 @@ Windows 桌面 K 歌軟體，從製作伴唱、點歌演唱，到錄音與音準
 
 </div>
 
-![OpenKaraoke 桌面畫面：歌曲庫、待播清單與演唱控制](docs/assets/overview.png)
+![OpenKaraoke 桌面畫面：版本號、歌曲庫、演唱控制與歌詞開關](docs/assets/overview.png)
 
 ## 功能
 
 - **製作自己的伴唱歌曲**：從 YouTube 網址製作歌曲，在本機分離導唱與伴奏；也能匯入 `.opok` 歌曲，並相容舊的 `.openkaraoke`。
 - **點歌與管理歌庫**：搜尋歌名或歌手、安排待播順序，支援重唱及自動下一首。
 - **調整演唱音效**：切換導唱／伴奏、升降調與迴聲，支援全螢幕演唱。
+- **匯入同步歌詞**：加入歌曲時可匯入歌詞，選擇滾動或 KTV 逐字顯示，並在「設定 → 顯示」調整字體大小。
 - **用電腦或手機收音**：電腦音訊輸入與手機來源二擇一；手機不需安裝 App，最多兩支共同演唱。
 - **查看音準表現**：旋律音條隨歌曲捲動，音符完成後呈現紅綠結果，提供三種評分難度。
 - **回顧這次演唱**：同步聆聽音樂與人聲錄音、查看音準記錄，並可下載錄音。
 
 ## 開始使用
 
-> **目前為開發版本，尚無正式 Release。** 首個正式版預定為 1.0.0；正式套件將提供於 [Releases](https://github.com/tm3u/OpenKaraoke/releases)。
-
-取得 Windows 執行套件後，只要三步：
+到 [Releases](https://github.com/tm3u/OpenKaraoke/releases/latest) 下載 Windows x64 執行版，再依下列步驟開始使用：
 
 1. **開啟程式**：完整解壓縮 `OpenKaraoke-Standalone-win-x64.zip`，執行最外層的 `OpenKaraoke.exe`，不需另外安裝 .NET。請保留隨附資料夾。
 2. **加入歌曲**：匯入 `.opok` 或舊的 `.openkaraoke`，或輸入 YouTube 網址、歌名與歌手，加入處理清單。
