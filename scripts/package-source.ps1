@@ -7,6 +7,7 @@ try {
     if(Get-Command rg -ErrorAction SilentlyContinue){$files=@(& rg --files --hidden --no-ignore src tests scripts licenses fixtures docs tools/creation tools/scoring tools/icons -g '!**/bin/**' -g '!**/obj/**')}
     else {$files=@(Get-ChildItem src,tests,scripts,licenses,fixtures,docs,tools/creation,tools/scoring,tools/icons -File -Recurse -Force | Where-Object FullName -NotMatch '[\\/](bin|obj)[\\/]' | ForEach-Object {$_.FullName.Substring($projectRoot.Length+1)})}
     $files+=@('LICENSE','README.md','THIRD-PARTY-NOTICES.md','Directory.Build.props','global.json','.gitignore','.gitattributes','tools/manifest.json')
+    if(Test-Path -LiteralPath '.github/workflows/release.yml'){$files+='.github/workflows/release.yml'}
     $files=$files | Sort-Object -Unique
     New-Item -ItemType Directory -Force -Path (Join-Path $projectRoot 'dist') | Out-Null
     $output=Join-Path $projectRoot 'dist/OpenKaraoke-Standalone-source.zip'

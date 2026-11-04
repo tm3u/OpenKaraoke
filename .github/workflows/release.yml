@@ -1,0 +1,90 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.event.created && !github.event.deleted && github.event.sender.login == github.repository_owner && github.triggering_actor == github.repository_owner
+    runs-on: windows-2025
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Check release version
+        shell: pwsh
+        run: |
+          [xml]$project = Get-Content src/OpenKaraoke.Prototype/OpenKaraoke.Prototype.csproj -Raw
+          $version = $project.Project.PropertyGroup.Version
+          if ($env:GITHUB_REF_TYPE -ne 'tag' -or $env:GITHUB_REF_NAME -cnotmatch '^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$' -or $env:GITHUB_REF_NAME -cne "v$version") {
+            throw "Tag $env:GITHUB_REF_NAME must match project version v$version."
+          }
+
+      - name: Build Windows and source packages
+        shell: pwsh
+        run: |
+          ./scripts/bootstrap.ps1
+          ./scripts/make-fixtures.ps1
+          ./scripts/build.ps1 -Publish
+          ./scripts/package-source.ps1
+
+      - name: Upload and publish
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = $env:GITHUB_REF_NAME
+          $version = $tag.Substring(1)
+          $runtime = 'dist/OpenKaraoke-Standalone-win-x64.zip'
+          $source = 'dist/OpenKaraoke-Standalone-source.zip'
+          $required = @{
+            $runtime = @('OpenKaraoke.exe', 'app/OpenKaraoke.dll', 'LICENSE')
+            $source = @('OpenKaraoke-Standalone-source/LICENSE', 'OpenKaraoke-Standalone-source/THIRD-PARTY-NOTICES.md', 'OpenKaraoke-Standalone-source/src/OpenKaraoke.Prototype/OpenKaraoke.Prototype.csproj')
+          }
+          foreach ($path in @($runtime, $source)) {
+            $file = Get-Item -LiteralPath $path
+            if ($file.Length -le 0 -or $file.Length -ge 2GB) { throw "Invalid package size: $path" }
+            $archive = [IO.Compression.ZipFile]::OpenRead($file.FullName)
+            try {
+              foreach ($entry in $required[$path]) {
+                if (-not $archive.GetEntry($entry)) { throw "Missing $entry in $path" }
+              }
+            } finally { $archive.Dispose() }
+          }
+          if ((Get-Item -LiteralPath dist/OpenKaraoke-Standalone/OpenKaraoke.exe).VersionInfo.ProductVersion -cne $version) {
+            throw 'The Windows executable version does not match the tag.'
+          }
+          $hashes = Get-FileHash -LiteralPath $runtime, $source | ForEach-Object { "$($_.Hash)  $(Split-Path -Leaf $_.Path)" }
+          $notes = Join-Path $env:RUNNER_TEMP 'release-notes.md'
+          @('Windows x64：解壓執行版後開啟 OpenKaraoke.exe。', '', 'SHA-256', '', '~~~text') + $hashes + @('~~~') |
+            Set-Content -LiteralPath $notes -Encoding utf8
+
+          $target = gh api "repos/$env:GITHUB_REPOSITORY/commits/$tag" --jq .sha
+          if ($LASTEXITCODE -ne 0 -or $target -cne (git rev-parse HEAD)) {
+            throw '遠端標籤已變更或無法確認。'
+          }
+          gh release create $tag $runtime $source --repo $env:GITHUB_REPOSITORY --verify-tag --draft --title "OpenKaraoke $tag" --notes-file $notes
+          if ($LASTEXITCODE -ne 0) { throw '建立 Release 草稿或上傳附件失敗。' }
+          $release = gh release view $tag --repo $env:GITHUB_REPOSITORY --json isDraft,assets
+          if ($LASTEXITCODE -ne 0) { throw '無法確認已上傳的附件。' }
+          $draft = $release | ConvertFrom-Json
+          if (-not $draft.isDraft -or $draft.assets.Count -ne 2) { throw 'Release 草稿的附件數量不符。' }
+          foreach ($path in @($runtime, $source)) {
+            $file = Get-Item -LiteralPath $path
+            if (-not ($draft.assets | Where-Object { $_.name -eq $file.Name -and $_.size -eq $file.Length -and $_.state -eq 'uploaded' })) {
+              throw "附件尚未完整上傳：$path"
+            }
+          }
+          gh release edit $tag --repo $env:GITHUB_REPOSITORY --draft=false --latest
+          if ($LASTEXITCODE -ne 0) { throw '發布 Release 失敗。' }

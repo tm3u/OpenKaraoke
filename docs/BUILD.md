@@ -38,4 +38,6 @@ Get-FileHash ./dist/OpenKaraoke-Standalone-win-x64.zip, ./dist/OpenKaraoke-Stand
 
 `dist/OpenKaraoke-Standalone-source.zip` 含程式、測試、工具、授權、合成影片及第三方對應來源。第三方來源依 `tools/manifest.json` 核對。原始碼 ZIP 排除 SDK、建置輸出、測試產物及個人資料。
 
-發布時以已驗證的提交建立版本標籤及 GitHub Release 草稿，附上同版本的兩個 ZIP 及 SHA-256，再人工確認發布。原生元件的核對與重建方式見[第三方聲明](../THIRD-PARTY-NOTICES.md)。
+驗收後，由儲存庫擁有者推送與專案版本一致的正式標籤，例如 `v1.0.1`。GitHub Actions 會從標籤建置，將兩個 ZIP 上傳至 Release 草稿，確認附件完整後發布，並在版本說明列出 SHA-256。一般分支推送不會發布 Release。若上傳失敗，請先檢查 Actions 紀錄及未發布的草稿。
+
+原生元件的核對與重建方式見[第三方聲明](../THIRD-PARTY-NOTICES.md)。
